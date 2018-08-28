@@ -1,0 +1,22 @@
+{
+  "name": "prop-updater",
+  "version": "1.0.0",
+  "description": "Update .prop files with search results of db3 database",
+  "main": "app.js",
+  "scripts": {
+    "start": "webpack"
+  },
+  "author": "John Dinh",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "node-pre-gyp": "^0.11.0"
+  },
+  "dependencies": {
+    "directory-tree": "^2.1.0",
+    "replace-in-file": "^3.4.2",
+    "sqlite3": "^4.0.2"
+  }
+}
