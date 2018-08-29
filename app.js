@@ -19,12 +19,13 @@ for (let area of dignityTree.children) {
                 let prop = '';
                 let db3 = '';
 
-                if (fileFolder.name.includes('zconfig')) {
-                    prop = fileFolder.children[0].path;
+                if (fileFolder.name.includes('zconfig') && fileFolder.children[0].name === 'LL.prop') {
+                    prop = fileFolder.children[0].path.replace(/\\/g, '/');
+                    console.log(prop);
                     if (currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop)))) {
                         currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop))).children.forEach(file => {
                             if (file.name.includes(getDB3FileName(prop))) {
-                                db3 = file.path;
+                                db3 = file.path.replace(/\\/g, '/');
                             }
                         });
                     } else {
@@ -43,7 +44,7 @@ for (let area of dignityTree.children) {
 
 // Functions related to DB3
 function getContainingDB3Folder(prop) {
-    return fs.readFileSync(prop, 'utf8').match(/zCA[\w | .]+[/ex_inp]+/)[0].replace('*', '');
+    return fs.readFileSync(prop, 'utf8').match(/zCA[\w | .]+[/ex_inp]+/)[0];
 }
 
 function currentDB3Tree(path) {
