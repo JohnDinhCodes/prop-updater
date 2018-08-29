@@ -64,7 +64,7 @@ function getDB3FileName(prop) {
 function createData(database) {
     let sql = `SELECT CLP01 
     FROM L2100
-    WHERE REPLACE(CLP01, '9', '') = ''
+    WHERE REPLACE(CLP01, '0', '') = ''
     OR REPLACE(CLP01, '9', '') = ''
     OR CLP01 = 'UNKNOWN'
     GROUP BY CLP01`;
