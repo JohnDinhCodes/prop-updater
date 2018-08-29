@@ -19,8 +19,12 @@ for (let area of dignityTree.children) {
 
             if (containingFolder.name.includes('zDI')) {
                 containingFolder.children.forEach(folder => {
-                    if (folder.name.includes('zconfig')) {
-                        prop = folder.children[0].path.replace(/\\/g, '/');
+                    if (folder.name.includes('zconfig') ) {
+                        folder.children.forEach(file => {
+                            if (file.name === 'LL.prop') {
+                                prop = file.path;
+                            }
+                        })
                         if (currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop)))) {
                             currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop))).children.forEach(file => {
                                 if (file.name.includes(getDB3FileName(prop))) {
