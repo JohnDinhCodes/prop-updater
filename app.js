@@ -14,29 +14,29 @@ for (let area of dignityTree.children) {
 
         for (let containingFolder of hospital.children) {
 
-            for (let fileFolder of containingFolder.children) {
+            let prop = '';
+            let db3 = '';
 
-                let prop = '';
-                let db3 = '';
-
-                if (fileFolder.name.includes('zconfig') && fileFolder.children[0].name === 'LL.prop') {
-                    prop = fileFolder.children[0].path.replace(/\\/g, '/');
-                    console.log(prop);
-                    if (currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop)))) {
-                        currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop))).children.forEach(file => {
-                            if (file.name.includes(getDB3FileName(prop))) {
-                                db3 = file.path.replace(/\\/g, '/');
-                            }
-                        });
-                    } else {
-                        console.log(`No DB3 File found at: ${currentDB3Tree(prop.replace(/zDI[\S]+/, '')).path}`);
+            if (containingFolder.name.includes('zDI')) {
+                containingFolder.children.forEach(folder => {
+                    if (folder.name.includes('zconfig')) {
+                        prop = folder.children[0].path.replace(/\\/g, '/');
+                        if (currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop)))) {
+                            currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop))).children.forEach(file => {
+                                if (file.name.includes(getDB3FileName(prop))) {
+                                    db3 = file.path.replace(/\\/g, '/');
+                                }
+                            });
+                        } else {
+                            console.log(`No DB3 File found at: ${currentDB3Tree(prop.replace(/zDI[\S]+/, '')).path}`);
+                        }
                     }
-                }
-                if (prop.length > 0 && db3.length > 0) {
-                    createData(db3).then(queries => {
-                        updateProp(queries, prop);
-                    });
-                }
+                });
+            }
+            if (prop.length > 0 && db3.length > 0) {
+                createData(db3).then(queries => {
+                    updateProp(queries, prop);
+                });
             }
         }
     }
