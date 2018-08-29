@@ -22,9 +22,9 @@ for (let area of dignityTree.children) {
                     if (folder.name.includes('zconfig') ) {
                         folder.children.forEach(file => {
                             if (file.name === 'LL.prop') {
-                                prop = file.path;
+                                prop = file.path.replace(/\\/g, '/');
                             }
-                        })
+                        });
                         if (currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop)))) {
                             currentDB3Tree(prop.replace(/zDI[\S]+/, getContainingDB3Folder(prop))).children.forEach(file => {
                                 if (file.name.includes(getDB3FileName(prop))) {
@@ -38,6 +38,7 @@ for (let area of dignityTree.children) {
                 });
             }
             if (prop.length > 0 && db3.length > 0) {
+
                 createData(db3).then(queries => {
                     updateProp(queries, prop);
                 });
@@ -108,18 +109,11 @@ function updateProp(queries, prop) {
         }
     }
 
-    // Make String With Current Week Number
-    let weekNumber = moment().date(0).format('WW');
-    let weekString = `${weekNumber} with Week Number`
-
-    //Make String With Current Year
-    let yearNumber = moment().date(0).format('YY');
-    let yearString = `Y${yearNumber} with Year`
 
     const options = {
         files: prop,
-        from: [/^script.ignoreClaims=?[^\s]+/m, /[0-9]+ with Week Number/, /Y[0-9]+ with Year/],
-        to: [claimString, weekString, yearString]
+        from: /^script.ignoreClaims=?[^\s]+/m,
+        to: claimString
     };
 
 
