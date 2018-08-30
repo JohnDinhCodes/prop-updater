@@ -43,10 +43,13 @@ function updateDate(prop) {
         let yearNumber = moment().date(0).format('YY');
         let yearString = `Y${yearNumber}`
 
+        let dateNumber = moment().date(0).subtract(1, 'years').format('YYYY-MM-DD');
+        let dateString = `SelectDate=${dateNumber.replace(/-/g, '')}`;
+
         const options = {
             files: prop,
-            from: [/w[0-9]+/g, /Y[0-9]+/g],
-            to: [weekString, yearString]
+            from: [/w[0-9]+/g, /Y[0-9]+/g, /SelectDate=[0-9]+/],
+            to: [weekString, yearString, dateString]
         };
 
 

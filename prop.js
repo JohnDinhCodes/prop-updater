@@ -100,7 +100,9 @@ function updateProp(queries, prop) {
     let claimString = 'script.ignoreClaims=';
 
     for (let claim of queries) {
-        data.push(claim.clp01);
+        if (claim.clp01.length > 0) {
+            data.push(claim.clp01);
+        }
     }
 
     for (let i = 0; i < data.length; i++) {
