@@ -53,7 +53,7 @@ function updateDate(prop) {
         replace(options)
         .then(changes => {
             if (changes.length > 0) {
-                console.log('Modified files:', changes.join(', '));
+                console.log('[DATE] Modified files:', changes.join(', '));
             }
         })
         .catch(error => {

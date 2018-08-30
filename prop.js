@@ -8,6 +8,8 @@ const fs = Promise.promisifyAll(require('fs'));
 const moment = require('moment');
 
 
+
+
 for (let area of dignityTree.children) {
 
     for (let hospital of area.children) {
@@ -120,7 +122,7 @@ function updateProp(queries, prop) {
     replace(options)
         .then(changes => {
             if (changes.length > 0) {
-                console.log('Modified files:', changes.join(', '));
+                console.log('[CLAIMS] Modified files:', changes.join(', '));
             }
         })
         .catch(error => {
